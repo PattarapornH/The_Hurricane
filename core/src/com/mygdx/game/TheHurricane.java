@@ -26,28 +26,11 @@ public class TheHurricane extends Game {
 
 	@Override
 	public void render () {
-		//int randItem = random.nextInt(2);
-		//batch.begin();
-		//batch.draw(bg,0,0);
-		//batch.draw(drop,4,5);
-		/*
-		if(randItem == 1) {
-			batch.draw(umbrella, 120, 0);
-		}
-		else(randItem == 2){
-			batch.draw(light, 100, 100);
-		}
-		*/
 		super.render();
-		//batch.end();
 	}
 	
 	@Override
 	public void dispose () {
 		batch.dispose();
-		bg.dispose();
-		drop.dispose();
-		umbrella.dispose();
-		light.dispose();
 	}
 }

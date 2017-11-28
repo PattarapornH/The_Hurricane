@@ -10,44 +10,49 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 public class GameScreen extends ScreenAdapter{
     public SpriteBatch batch;
     private TheHurricane TheHurricane;
-    //private Texture drop;
+    private Texture drop;
     private  Texture umbrella;
-    private  Texture bg;
-    private int x;
-    private int y;
+    private Texture light;
+    private int xUmb;
+    private int yDrop;
 
     public GameScreen(TheHurricane TheHurricane) {
         this.TheHurricane = TheHurricane;
         umbrella = new Texture("umbrella.png");
-        x = 100;
-        y = 100;
+        drop = new Texture("drop.png");
+        light = new Texture("lightning.png");
+        xUmb = 100;
+        yDrop = 700;
+
     }
 
     public void render (float delta) {
-        //	System.out.println("Hello " + delta);
-        Gdx.gl.glClearColor(0, 0, 1, 1);
+        Gdx.gl.glClearColor(0, 1, 1, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        //	x+=5;
-        //batch.draw(bg);
         update(delta);
         SpriteBatch batch = TheHurricane.batch;
         batch.begin();
-        batch.draw(umbrella, x, y);
+        batch.draw(umbrella, xUmb, -40);
+        batch.draw(drop,100,yDrop);
+        batch.draw(light,350,yDrop);
         batch.end();
     }
 
     private void update(float delta) {
         if(Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
-            x -= 10;
+            xUmb = 100;
         }
         if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
-            x += 10;
+            xUmb = 250;
         }
+        /*
         if(Gdx.input.isKeyPressed(Input.Keys.UP)) {
-            y += 10;
+            yUmb += 10;
         }
         if(Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
-            y -= 10;
+            yUmb -= 10;
         }
+        */
+        yDrop -= delta;
     }
 }
