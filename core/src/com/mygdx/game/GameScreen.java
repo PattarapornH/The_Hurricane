@@ -11,18 +11,22 @@ public class GameScreen extends ScreenAdapter{
     public SpriteBatch batch;
     private TheHurricane TheHurricane;
     private Texture drop;
-    private  Texture umbrella;
+    private Texture umbrella;
     private Texture light;
+    private Texture bg;
     private int xUmb;
     private int yDrop;
+    private int yLight;
 
     public GameScreen(TheHurricane TheHurricane) {
         this.TheHurricane = TheHurricane;
         umbrella = new Texture("umbrella.png");
         drop = new Texture("drop.png");
         light = new Texture("lightning.png");
+        bg = new Texture("bg.png");
         xUmb = 100;
         yDrop = 700;
+        yLight = 700;
 
     }
 
@@ -32,9 +36,10 @@ public class GameScreen extends ScreenAdapter{
         update(delta);
         SpriteBatch batch = TheHurricane.batch;
         batch.begin();
-        batch.draw(umbrella, xUmb, -40);
-        batch.draw(drop,100,yDrop);
-        batch.draw(light,350,yDrop);
+        batch.draw(bg,0,0);
+        batch.draw(umbrella, xUmb, 0);
+        batch.draw(drop, 125, yDrop);
+        batch.draw(light,270,yLight);
         batch.end();
     }
 
@@ -45,14 +50,7 @@ public class GameScreen extends ScreenAdapter{
         if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
             xUmb = 250;
         }
-        /*
-        if(Gdx.input.isKeyPressed(Input.Keys.UP)) {
-            yUmb += 10;
-        }
-        if(Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
-            yUmb -= 10;
-        }
-        */
-        yDrop -= delta;
+        yDrop -= 5;
+        yLight -= 2;
     }
 }
