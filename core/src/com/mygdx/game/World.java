@@ -5,12 +5,10 @@ import com.badlogic.gdx.Gdx;
 import java.util.Random;
 
 public class World {
-    private float count = 0;
     private float totalTime = 60;
     private float deltaTime;
     private int sec;
-    private int randItem;
-    private int randX;
+    private int count = 0;
 
     Random random = new Random();
 
@@ -27,7 +25,10 @@ public class World {
     }
 
     public int random(int rand) {
-        rand = random.nextInt(2);
+        //if(sec - (int)totalTime >= 1) {
+            rand = random.nextInt(2);
+            //System.out.println("a");
+        //}
         return rand;
     }
 }

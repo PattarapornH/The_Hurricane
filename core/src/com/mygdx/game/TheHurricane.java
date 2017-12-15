@@ -11,7 +11,6 @@ import java.util.Random;
 public class TheHurricane extends Game {
 	SpriteBatch batch;
 	Texture bg , drop, umbrella, light;
-	Random random = new Random();
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
