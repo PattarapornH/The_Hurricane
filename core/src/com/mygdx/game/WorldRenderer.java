@@ -16,6 +16,8 @@ public class WorldRenderer {
     private Texture umbrella;
     private Texture light;
     private Texture bg;
+    private Texture tornado;
+    private Texture gameOverTexture;
 
     public int xUmb = 100;
     private int randItem;
@@ -23,6 +25,11 @@ public class WorldRenderer {
     private int count = 0;
     private int score = 0;
     private int time;
+
+    private int gameBeforePlay = -1;
+    private int gamePlaying = 0;
+    private int gameOver = 1;
+    private int gameState = -1;
 
     private List<Texture> itemsRandom;
     public Texture [] itemsFall = new Texture[4];
@@ -43,17 +50,53 @@ public class WorldRenderer {
         drop = new Texture("drop.png");
         light = new Texture("lightning.png");
         umbrella = new Texture("umbrella.png");
+        tornado = new Texture("windstorm.png");
+        gameOverTexture = new Texture("game-over2.png");
         this.world = new World();
         this.TheHurricane = TheHurricane;
         font.setColor(Color.BLACK);
+        font.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         itemsRandom = new ArrayList<Texture>();
         itemsRandom.add(drop);
         itemsRandom.add(light);
     }
 
-    public void renderPlay(float delta){
+    public void render(){
+        if(gameState == gameBeforePlay){
+            renderGameStart();
+            if(Gdx.input.isKeyJustPressed(Input.Keys.DOWN)){
+                gameState = gamePlaying;
+            }
+        }
+        else if(gameState == gamePlaying){
+            renderGamePlay();
+            if(time == 0){
+                gameState = gameOver;
+            }
+        }
+        else if(gameState == gameOver){
+            renderGameOver();
+            if(Gdx.input.isKeyJustPressed(Input.Keys.DOWN)){
+                gameState = gamePlaying;
+            }
+        }
+    }
+    
+    public void renderGameStart(){
         SpriteBatch batch = TheHurricane.batch;
-        update(delta);
+        font.getData().setScale(2);
+        batch.draw(bg,0,0);
+        font.draw(batch,"THE  HURRICANE",125,650);
+        font.draw(batch,"PRESS DOWN TO PLAY",80,250);
+        batch.draw(tornado,100,300);
+        batch.draw(umbrella,175,50);
+        batch.draw(drop,50,50);
+        batch.draw(light,360,50);
+    }
+    public void renderGamePlay(){
+        SpriteBatch batch = TheHurricane.batch;
+        update();
+        font.getData().setScale(1);
         batch.draw(bg,0,0);
         font.draw(batch,"SCORE : "+ Integer.toString(score),400,675);
         font.draw(batch,"TIME : "+ Integer.toString(time),25,675);
@@ -81,8 +124,19 @@ public class WorldRenderer {
         }
     }
 
-    public void update(float delta) {
-        //world.Timer();
+    public void renderGameOver(){
+        SpriteBatch batch = TheHurricane.batch;
+        font.getData().setScale(2);
+        batch.draw(bg,0,0);
+        font.draw(batch,"SCORE : "+ Integer.toString(score),125,640);
+        font.draw(batch,"PRESS DOWN TO PLAY AGAIN",40,250);
+        batch.draw(gameOverTexture,100,300);
+        batch.draw(umbrella,175,50);
+        batch.draw(drop,50,50);
+        batch.draw(light,360,50);
+    }
+
+    public void update() {
         if (Gdx.input.isKeyJustPressed(Input.Keys.LEFT)) {
             xUmb = 100;
             randItem = world.random(randItem);

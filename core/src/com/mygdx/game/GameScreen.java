@@ -27,7 +27,7 @@ public class GameScreen extends ScreenAdapter{
         SpriteBatch batch = TheHurricane.batch;
 
         batch.begin();
-        WorldRenderer.renderPlay(delta);
+        WorldRenderer.render();
         batch.end();
     }
 
