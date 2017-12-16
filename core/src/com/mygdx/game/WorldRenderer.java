@@ -2,7 +2,9 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import java.util.ArrayList;
@@ -20,6 +22,7 @@ public class WorldRenderer {
     private int randX;
     private int count = 0;
     private int score = 0;
+    private int time;
 
     private List<Texture> itemsRandom;
     public Texture [] itemsFall = new Texture[4];
@@ -28,11 +31,13 @@ public class WorldRenderer {
 
     int [] xItemsRandom = {100,250};
 
+    BitmapFont font = new BitmapFont();
+
     private World world;
     private TheHurricane TheHurricane;
 
 
-    public WorldRenderer(TheHurricane TheHurricane){
+    public WorldRenderer(TheHurricane TheHurricane,World world){
 
         bg = new Texture("bg.png");
         drop = new Texture("drop.png");
@@ -40,15 +45,18 @@ public class WorldRenderer {
         umbrella = new Texture("umbrella.png");
         this.world = new World();
         this.TheHurricane = TheHurricane;
+        font.setColor(Color.BLACK);
         itemsRandom = new ArrayList<Texture>();
         itemsRandom.add(drop);
         itemsRandom.add(light);
     }
 
-    public void render(float delta){
+    public void renderPlay(float delta){
         SpriteBatch batch = TheHurricane.batch;
         update(delta);
         batch.draw(bg,0,0);
+        font.draw(batch,"SCORE : "+ Integer.toString(score),400,675);
+        font.draw(batch,"TIME : "+ Integer.toString(time),25,675);
         /*** UMBRELLA ***/
         batch.draw(umbrella,xUmb,0);
         /*** RANDOM ITEM ***/
@@ -74,7 +82,7 @@ public class WorldRenderer {
     }
 
     public void update(float delta) {
-        world.Timer();
+        //world.Timer();
         if (Gdx.input.isKeyJustPressed(Input.Keys.LEFT)) {
             xUmb = 100;
             randItem = world.random(randItem);
@@ -96,8 +104,9 @@ public class WorldRenderer {
         if (count == 4) {
             count = 0;
         }
+        //score = this.world.scorer();
         score = scorer();
-        System.out.println(score);
+        time = this.world.Timer();
     }
     public int scorer(){
         for(int i = 0 ;i < 4; i++){
