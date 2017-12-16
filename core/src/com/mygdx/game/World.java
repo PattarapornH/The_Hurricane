@@ -6,9 +6,9 @@ import com.badlogic.gdx.graphics.Texture;
 import java.util.Random;
 
 public class World {
-    private float totalTime = 20;
+    public float totalTime = 20;
     private float deltaTime;
-    private int sec;
+    public int sec;
     private int score = 0;
     private int xUmb;
 
@@ -31,11 +31,11 @@ public class World {
     }
 
 
-    public int Timer() {
+    public void Timer() {
         deltaTime = Gdx.graphics.getDeltaTime();
         sec = (int) (totalTime % 60);
         totalTime -= deltaTime;
-        return sec;
+        //return sec;
     }
 
     public int random(int rand) {

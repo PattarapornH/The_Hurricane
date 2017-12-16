@@ -59,6 +59,7 @@ public class WorldRenderer {
         itemsRandom = new ArrayList<Texture>();
         itemsRandom.add(drop);
         itemsRandom.add(light);
+        //System.out.print(this.world.sec);
     }
 
     public void render(){
@@ -77,6 +78,8 @@ public class WorldRenderer {
         else if(gameState == gameOver){
             renderGameOver();
             if(Gdx.input.isKeyJustPressed(Input.Keys.DOWN)){
+                this.world.totalTime = 20;
+                score = 0;
                 gameState = gamePlaying;
             }
         }
@@ -129,8 +132,8 @@ public class WorldRenderer {
         font.getData().setScale(2);
         batch.draw(bg,0,0);
         font.draw(batch,"SCORE : "+ Integer.toString(score),125,640);
-        font.draw(batch,"PRESS DOWN TO PLAY AGAIN",40,250);
-        batch.draw(gameOverTexture,100,300);
+        font.draw(batch,"PRESS DOWN TO PLAY AGAIN",60,250);
+        batch.draw(gameOverTexture,110,300);
         batch.draw(umbrella,175,50);
         batch.draw(drop,50,50);
         batch.draw(light,360,50);
@@ -158,9 +161,10 @@ public class WorldRenderer {
         if (count == 4) {
             count = 0;
         }
+        this.world.Timer();
         //score = this.world.scorer();
         score = scorer();
-        time = this.world.Timer();
+        time = this.world.sec;
     }
     public int scorer(){
         for(int i = 0 ;i < 4; i++){
