@@ -15,18 +15,18 @@ public class WorldRenderer {
     private Texture light;
     private Texture bg;
 
-    private int xUmb = 100;
+    public int xUmb = 100;
     private int randItem;
     private int randX;
     private int count = 0;
+    private int score = 0;
 
     private List<Texture> itemsRandom;
-    Texture [] itemsFall = new Texture[4];
-    int [] xFallPos = new int [4];
-    int [] yFallPos = new int[4];
+    public Texture [] itemsFall = new Texture[4];
+    public  int [] xFallPos = new int [4];
+    public int [] yFallPos = new int[4];
 
-    int [] yItem = {600,450,300,150};
-    int [] xItemsRandom = {125,270};
+    int [] xItemsRandom = {100,250};
 
     private World world;
     private TheHurricane TheHurricane;
@@ -96,7 +96,30 @@ public class WorldRenderer {
         if (count == 4) {
             count = 0;
         }
+        score = scorer();
+        System.out.println(score);
     }
-
-
+    public int scorer(){
+        for(int i = 0 ;i < 4; i++){
+            if(yFallPos[i] == 0){
+                if(xFallPos[i] == xUmb){
+                    if(itemsFall[i] == drop){
+                        score += 5;
+                    }
+                    else if(itemsFall[i] == light){
+                        score -= 3;
+                    }
+                }
+                else if(xFallPos[i] != xUmb){
+                    if(itemsFall[i] == drop){
+                        score -= 2;
+                    }
+                }
+            }
+        }
+        if(score < 0){
+            score = 0;
+        }
+        return score;
+    }
 }
