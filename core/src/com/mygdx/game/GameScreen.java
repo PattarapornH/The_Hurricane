@@ -17,7 +17,7 @@ public class GameScreen extends ScreenAdapter{
     public GameScreen(TheHurricane TheHurricane) {
         this.TheHurricane = TheHurricane;
         this.world = new World();
-        this.WorldRenderer = new WorldRenderer(this.TheHurricane,this.world);
+        this.WorldRenderer = new WorldRenderer(this.TheHurricane,world);
 
     }
 
