@@ -16,7 +16,7 @@ public class World {
     public int randX ;
     public int count;
 
-    int [] yFallPos = new int[4];
+    public int [] yFallPos = new int[4];
 
     private Texture drop;
     private Texture light;
@@ -29,7 +29,7 @@ public class World {
 
     public void World(WorldRenderer worldRenderer) {
         this.theHurricane = new TheHurricane();
-        this.worldRenderer = new WorldRenderer(this.theHurricane,this);
+        this.worldRenderer = new WorldRenderer(theHurricane,this);
         drop = new Texture("drop.png");
         light = new Texture("lightning.png");
         itemsRandom[0] = drop;

@@ -7,9 +7,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class WorldRenderer {
     public SpriteBatch batch;
     private Texture drop;
@@ -71,7 +68,7 @@ public class WorldRenderer {
             renderGameOver();
             if(Gdx.input.isKeyJustPressed(Input.Keys.DOWN)){
                 world.totalTime = 20;
-                world.score = 0;
+                score = 0;
                 for(int i = 0;i < 4;i++){
                     itemsFall[i] = null;
                 }
