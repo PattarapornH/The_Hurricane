@@ -37,10 +37,11 @@ public class World {
     }
 
 
-    public void Timer() {
+    public int Timer() {
         deltaTime = Gdx.graphics.getDeltaTime();
         sec = (int) (totalTime % 60);
         totalTime -= deltaTime;
+        return sec;
     }
 
     public int random(int rand) {

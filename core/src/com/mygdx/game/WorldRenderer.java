@@ -134,9 +134,8 @@ public class WorldRenderer {
 
     public void update() {
         world.updateRandomPos();
-        world.Timer();
+        time = world.Timer();
         score = scorer();
-        time = world.sec;
     }
 
     public int scorer(){
